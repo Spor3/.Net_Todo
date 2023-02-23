@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ssporeni\\Desktop\\Study\\.Net\\ToDoApp\\ToDoApp\\ToDoApp.csproj": {}
+    "E:\\.NET\\Todo\\ToDoApp\\ToDoApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ssporeni\\Desktop\\Study\\.Net\\ToDoApp\\ToDoApp\\ToDoApp.csproj": {
+    "E:\\.NET\\Todo\\ToDoApp\\ToDoApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ssporeni\\Desktop\\Study\\.Net\\ToDoApp\\ToDoApp\\ToDoApp.csproj",
+        "projectUniqueName": "E:\\.NET\\Todo\\ToDoApp\\ToDoApp.csproj",
         "projectName": "ToDoApp",
-        "projectPath": "C:\\Users\\ssporeni\\Desktop\\Study\\.Net\\ToDoApp\\ToDoApp\\ToDoApp.csproj",
-        "packagesPath": "C:\\Users\\ssporeni\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ssporeni\\Desktop\\Study\\.Net\\ToDoApp\\ToDoApp\\obj\\",
+        "projectPath": "E:\\.NET\\Todo\\ToDoApp\\ToDoApp.csproj",
+        "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
+        "outputPath": "E:\\.NET\\Todo\\ToDoApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ssporeni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[1.2.1, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.14, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.3, )"
@@ -61,6 +65,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
+            },
+            "Swashbuckle.AspNetCore.Filters": {
+              "target": "Package",
+              "version": "[7.0.6, )"
             }
           },
           "imports": [
@@ -74,6 +82,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.14, 6.0.14]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.14, 6.0.14]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.14, 6.0.14]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.14, 6.0.14]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -82,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

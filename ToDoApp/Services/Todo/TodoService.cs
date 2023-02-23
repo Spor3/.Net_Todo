@@ -16,13 +16,29 @@ namespace ToDoApp.Services.TodoService
         } 
 
         public async Task<ErrorOr<Created>> CreateUser(User user) 
-        { 
+        {
+            var exUser = await _dataContext.User.Where(c => c.Email == user.Email).FirstOrDefaultAsync();
+
+            if(exUser != null)
+            {
+                return Errors.User.Conflict;
+            }
             _dataContext.User.Add(user);
             await _dataContext.SaveChangesAsync();
 
             return Result.Created;
         }
-        public async Task<ErrorOr<Updated>> UpdateUser(User user)
+        public async Task<ErrorOr<User>> TakePss(User user)
+        {
+            var exUser = await _dataContext.User.Where(c => c.Email == user.Email).FirstOrDefaultAsync();
+            if(exUser == null)
+            {
+                return Errors.User.NotFound;
+            }
+
+            return exUser;
+        }
+         public async Task<ErrorOr<Updated>> UpdateUser(User user)
         {
             var upsertUser = await _dataContext.User.FindAsync(user.Id);
 

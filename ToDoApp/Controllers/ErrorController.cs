@@ -5,10 +5,10 @@ using ToDoApp.ServiceError;
 namespace ToDoApp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/")]
     public class ErrorController : ControllerBase
     {
-        [Route("/error")]
+        [Route("error")]
         protected IActionResult Problem(List<Error> errors)
         {
             if (errors.Any(e => e.Type == ErrorType.Unexpected))

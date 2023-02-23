@@ -6,6 +6,7 @@ namespace ToDoApp.Services.TodoService
     public interface ITodoService
     {
         Task<ErrorOr<Created>> CreateUser(User user);
+        Task<ErrorOr<User>> TakePss(User user);
         Task<ErrorOr<Updated>> UpdateUser(User user);
         Task<ErrorOr<Deleted>> DeleteUser(int userId);
 

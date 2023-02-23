@@ -11,5 +11,17 @@ namespace ToDoApp.ServiceError
                 description: "Todo Not Found."
                 );
         }
+
+        public static class User
+        {
+            public static Error NotFound => Error.NotFound(
+                code: "User.NotFound",
+                description: "User Not Found."
+                );
+            public static Error Conflict => Error.Conflict(
+                code: "User.AlredyExisting",
+                description: "User Already Existing."
+                );
+        }
     }
 }

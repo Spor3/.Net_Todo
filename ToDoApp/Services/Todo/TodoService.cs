@@ -15,61 +15,13 @@ namespace ToDoApp.Services.TodoService
             _dataContext = dataContext; 
         } 
 
-        public async Task<ErrorOr<Created>> CreateUser(User user) 
-        {
-            var exUser = await _dataContext.User.Where(c => c.Email == user.Email).FirstOrDefaultAsync();
 
-            if(exUser != null)
-            {
-                return Errors.User.Conflict;
-            }
-            _dataContext.User.Add(user);
-            await _dataContext.SaveChangesAsync();
-
-            return Result.Created;
-        }
-        public async Task<ErrorOr<User>> TakePss(User user)
-        {
-            var exUser = await _dataContext.User.Where(c => c.Email == user.Email).FirstOrDefaultAsync();
-            if(exUser == null)
-            {
-                return Errors.User.NotFound;
-            }
-
-            return exUser;
-        }
-         public async Task<ErrorOr<Updated>> UpdateUser(User user)
-        {
-            var upsertUser = await _dataContext.User.FindAsync(user.Id);
-
-            if (upsertUser == null)
-            {//Todo : Tornare il giusto errore
-                return Errors.Todo.NotFound;
-            }
-            upsertUser.Name = user.Name;
-            upsertUser.Email = user.Email;
-            await _dataContext.SaveChangesAsync();
-
-            return Result.Updated;
-        }
-        public async Task<ErrorOr<Deleted>> DeleteUser(int userId)
-        {
-            var user = await _dataContext.User.FindAsync(userId);
-            if (user == null)
-            {//Todo : Tornare giusto errore
-                return Errors.Todo.NotFound;
-            }
-            _dataContext.User.Remove(user);
-            await _dataContext.SaveChangesAsync();
-
-            return Result.Deleted;
-        }
         public async Task<ErrorOr<Todo>> CreateTodo(int userId,Todo todo)
         {
             var user = await _dataContext.User.FindAsync(userId);
             if (user == null)
             {
-                return Errors.Todo.NotFound;
+                return Errors.User.NotFound;
             }
             todo.User = user;
                 _dataContext.Todo.Add(todo);    
@@ -77,26 +29,28 @@ namespace ToDoApp.Services.TodoService
             return todo;
 
         }
-        public async Task<ErrorOr<Todo>> UpdateTodo(int todoId, Todo todo)
+        public async Task<ErrorOr<Todo>> UpdateTodo(int userId,int todoId, Todo todo)
         {
-            var upsertTodo = await _dataContext.Todo.FindAsync(todoId);
+            var listUpsertTodo =  _dataContext.Todo.Where(c => c.UserId == userId).AsQueryable();
+            var upsertTodo = await listUpsertTodo.Where(c => c.Id == todoId).FirstOrDefaultAsync();
 
             if(upsertTodo != null)
             {
-                upsertTodo.Title = todo.Title;
-                upsertTodo.Description = todo.Description;
-                upsertTodo.Start = todo.Start;
-                upsertTodo.End = todo.End;
+                upsertTodo.Title = todo.Title == null ? upsertTodo.Title : todo.Title;
+                upsertTodo.Description = todo.Description == null ? upsertTodo.Description : todo.Description;
+                upsertTodo.Start = todo.Start.ToString().Length == 0 ? upsertTodo.Start : todo.Start;
+                upsertTodo.End = todo.End.ToString().Length == 0 ? upsertTodo.End : todo.End;
                 await _dataContext.SaveChangesAsync();
 
                 return upsertTodo;
             }
             return Errors.Todo.NotFound;
         }
-        public async Task<ErrorOr<Deleted>>  DeleteTodo(int todoId)
+        public async Task<ErrorOr<Deleted>>  DeleteTodo(int userId, int todoId)
         {
-            var todo = await _dataContext.Todo.FindAsync(todoId);
-            if(todo == null)
+            var listDeleteTodo = _dataContext.Todo.Where(c => c.UserId == userId).AsQueryable();
+            var todo =  await listDeleteTodo.Where(c => c.Id == todoId).FirstOrDefaultAsync();
+            if (todo == null)
             {
                 return Errors.Todo.NotFound;
             }

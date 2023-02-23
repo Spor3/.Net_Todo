@@ -16,6 +16,14 @@ builder.Services.AddDbContext<DataContext>(
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "Policy",
+                      policy =>
+                      {
+                          policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                      });
+});
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITodoService, TodoService>();
@@ -53,6 +61,8 @@ if (app.Environment.IsDevelopment())
 }
 app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
+
+app.UseCors("Policy");
 
 app.UseAuthentication();
 app.UseAuthorization();

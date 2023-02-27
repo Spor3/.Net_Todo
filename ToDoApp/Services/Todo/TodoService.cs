@@ -15,7 +15,6 @@ namespace ToDoApp.Services.TodoService
             _dataContext = dataContext; 
         } 
 
-
         public async Task<ErrorOr<Todo>> CreateTodo(int userId,Todo todo)
         {
             var user = await _dataContext.User.FindAsync(userId);

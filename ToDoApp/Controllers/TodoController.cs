@@ -1,5 +1,6 @@
 using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,6 +14,7 @@ using ToDoApp.Services.UserService;
 
 namespace ToDoApp.Controllers
 {
+
     [Route("todo")]
     public class TodoController : ErrorController
     {

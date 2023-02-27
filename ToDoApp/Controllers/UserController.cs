@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -54,7 +55,7 @@ namespace ToDoApp.Controllers
 
             return logUser.Match(
                 exsisting => VerifyPasswordHas(request.Password, exsisting.HashPassword, exsisting.HashSaltPassword) ? //creao token e lo rispondo
-                             Ok(CreateToken(exsisting)) : BadRequest(),
+                             Ok(new {token = CreateToken(exsisting)}) : BadRequest(),
                 errors => Problem(errors));
 
         }

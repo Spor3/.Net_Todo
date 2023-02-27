@@ -59,10 +59,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("Policy");
 app.UseExceptionHandler("/error");
 app.UseHttpsRedirection();
-
-app.UseCors("Policy");
 
 app.UseAuthentication();
 app.UseAuthorization();
